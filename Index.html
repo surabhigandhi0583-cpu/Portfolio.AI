@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio.AI </title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body { font-family: 'Poppins', sans-serif; margin:0; overflow-x:hidden; background:#fff; color:#111; }
+
+    /* Hero with image overlay */
+    .hero {
+      background: url('https://wallpapercave.com/wp/wp2700093.jpg') no-repeat center/cover;
+      position: relative;
+      color: white;
+      padding: 120px 20px;
+      text-align: center;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.45);
+    }
+    .hero h1, .hero p, .hero a { position: relative; }
+    .hero h1 { font-size: 3rem; font-weight: 600; }
+    .hero p { font-size: 1.2rem; margin-top: 20px; color:#111; }
+
+    .card { border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.08); background:#fff; color:#111; transition: transform 0.3s; }
+    .card:hover { transform: translateY(-5px); }
+    .feature-icon { font-size: 40px; color: #0d6efd; margin-bottom: 15px; }
+    .counter { font-size: 2rem; font-weight: 600; color: #0d6efd; }
+    footer { background: #f8f9fa; color: #333; padding: 20px; text-align: center; border-top: 1px solid #e5e5e5; }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="Index.html">Portfolio Evaluator</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link active" href="Index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="Evaluate.html">Evaluate</a></li>
+        <li class="nav-item"><a class="nav-link" href="Results.html">Results</a></li>
+        <li class="nav-item"><a class="nav-link" href="Dashboard.html">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <h1>AI-Based Developer Portfolio Evaluation</h1>
+    <p>Transform your GitHub profile into a career-ready showcase. Get insights, recommendations, and job matches instantly.</p>
+    <a href="Evaluate.html" class="btn btn-primary btn-lg mt-4">Evaluate My Portfolio</a>
+    <a href="Results.html" class="btn btn-outline-light btn-lg mt-4 ms-3">View Results</a>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="container my-5">
+  <div class="row text-center">
+    <div class="col-md-4">
+      <div class="card p-4">
+        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+        <h4>Portfolio Score</h4>
+        <p>AI-generated score based on your projects, activity, and code quality.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-4">
+        <div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
+        <h4>Smart Recommendations</h4>
+        <p>Identify gaps in your portfolio and get actionable advice to improve.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-4">
+        <div class="feature-icon"><i class="fas fa-briefcase"></i></div>
+        <h4>Job Suggestions</h4>
+        <p>Discover roles that fit your skills and see what’s needed to aim higher.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="container my-5">
+  <h2 class="text-center mb-4">How It Works</h2>
+  <div class="row text-center">
+    <div class="col-md-4">
+      <div class="card p-4">
+        <i class="fas fa-user-plus fa-2x text-primary mb-3"></i>
+        <h5>Step 1</h5>
+        <p>Enter your GitHub username or upload your portfolio.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-4">
+        <i class="fas fa-robot fa-2x text-success mb-3"></i>
+        <h5>Step 2</h5>
+        <p>Our AI analyzes your projects, commits, and skills.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-4">
+        <i class="fas fa-briefcase fa-2x text-warning mb-3"></i>
+        <h5>Step 3</h5>
+        <p>Get a portfolio score, recommendations, and job matches.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Carousel -->
+<section class="bg-light py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">What Users Say</h2>
+    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner text-center">
+        <div class="carousel-item active">
+          <blockquote class="blockquote">
+            <p>"This tool helped me polish my GitHub and land an internship!"</p>
+            <footer class="blockquote-footer">Student Developer</footer>
+          </blockquote>
+        </div>
+        <div class="carousel-item">
+          <blockquote class="blockquote">
+            <p>"As a recruiter, I can quickly assess candidates’ portfolios with ease."</p>
+            <footer class="blockquote-footer">Tech Recruiter</footer>
+          </blockquote>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="container my-5 text-center">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="counter">500+</div>
+      <p>Portfolios Evaluated</p>
+    </div>
+    <div class="col-md-4">
+      <div class="counter">100+</div>
+      <p>Job Roles Suggested</p>
+    </div>
+    <div class="col-md-4">
+      <div class="counter">85%</div>
+      <p>Users Improved Their Profile</p>
+    </div>
+  </div>
+</section>
+
+<!-- Call-to-Action Footer -->
+<section class="bg-primary text-white text-center p-5">
+  <h2>Ready to Transform Your Career?</h2>
+  <p>Start your evaluation today and unlock your potential.</p>
+  <a href="/evaluate" class="btn btn-light btn-lg mt-3">Get Started</a>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2026 AI Portfolio Evaluator </p>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

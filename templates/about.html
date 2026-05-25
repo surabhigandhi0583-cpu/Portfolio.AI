@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>About – PortIQ</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: #000; color: #f0f0f0; margin: 0; }
+
+    /* NAV */
+    .navbar { background: #000 !important; border-bottom: 1px solid #1a1a1a; }
+
+    /* HERO */
+    .hero { background: url('https://wallpapercave.com/wp/wp2700093.jpg') no-repeat center/cover; min-height: 38vh; position: relative; display: flex; align-items: center; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.75); }
+    .hero .container { position: relative; }
+    .hero h1 { color: #fff; }
+    .hero p { color: #ccc; }
+
+    /* ABOUT CARDS */
+    .about-card { background: #0d0d0d; border: 1px solid #222; border-radius: 14px; padding: 28px; margin-bottom: 24px; }
+    .about-card h4 { font-weight: 700; margin-bottom: 18px; color: #fff; }
+    .about-card > p { color: #ccc; font-size: 0.95rem; line-height: 1.8; }
+    .about-card ul { padding-left: 1.2rem; margin: 0; }
+    .about-card ul li { color: #ccc; font-size: 0.92rem; line-height: 1.9; }
+
+    /* MODE SECTIONS — all dark */
+    .mode-section { background: #111; border: 1px solid #2a2a2a; border-radius: 12px; padding: 20px; margin-bottom: 14px; }
+    .mode-section h6 { font-weight: 700; margin-bottom: 10px; }
+    .mode-section p { color: #bbb; font-size: 0.9rem; margin-bottom: 10px; }
+    .mode-section ul li { color: #bbb; font-size: 0.88rem; line-height: 1.9; }
+
+    /* SCORE FORMULA */
+    .score-formula { background: #0a0a0a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 14px 18px; font-family: monospace; font-size: 0.82rem; color: #888; margin-top: 14px; line-height: 1.8; word-break: break-all; }
+    .score-formula span { color: #0d6efd; }
+
+    /* ICON ROW */
+    .icon-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 16px; }
+    .icon-item { display: flex; align-items: center; gap: 10px; background: #111; border: 1px solid #222; border-radius: 10px; padding: 12px 16px; flex: 1; min-width: 170px; }
+    .icon-item i { font-size: 1.4rem; }
+    .icon-item span { font-size: 0.82rem; color: #aaa; }
+
+    /* TECH STACK PILLS */
+    .tech-pill { display: inline-block; background: #111; border: 1px solid #2a2a2a; border-radius: 50px; padding: 5px 16px; margin: 4px; font-size: 0.82rem; color: #aaa; }
+
+    /* FOOTER */
+    footer { background: #000; border-top: 1px solid #1a1a1a; color: #888; text-align: center; }
+    footer .footer-top { padding: 22px 20px 10px; }
+    footer .brand { color: #fff; font-weight: 700; font-size: 1.1rem; }
+    footer .footer-links a { color: #777; text-decoration: none; margin: 0 10px; font-size: 0.85rem; }
+    footer .footer-links a:hover { color: #0d6efd; }
+    footer .marquee-strip { background: #080808; border-top: 1px solid #1a1a1a; padding: 10px 0; }
+    footer marquee { font-size: 0.78rem; color: #444; }
+    footer marquee span { margin: 0 30px; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-4" href="/">Port<span style="color:#0d6efd">IQ</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="nav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/evaluate">Evaluate</a></li>
+        <li class="nav-item"><a class="nav-link" href="/results">Results</a></li>
+        <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/about">About</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container text-center">
+    <h1 class="fw-bold">About PortIQ</h1>
+    <p class="lead">How our AI evaluates your career profile — transparently.</p>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section class="container my-5" style="max-width:860px;">
+
+  <!-- What is PortIQ -->
+  <div class="about-card">
+    <h4><i class="fas fa-info-circle text-info me-2"></i>What is PortIQ?</h4>
+    <p>PortIQ is a multi-profile career evaluation tool that analyzes <strong style="color:#fff;">GitHub repositories, Resume PDFs, LinkedIn profiles, and personal portfolio websites</strong> to give developers and students a clear picture of where they stand and how to improve. Think of it as your AI career coach, available 24/7.</p>
+    <div class="icon-row">
+      <div class="icon-item"><i class="fab fa-github text-info"></i><span>GitHub Repo Analysis</span></div>
+      <div class="icon-item"><i class="fas fa-file-pdf text-warning"></i><span>Resume ATS Scoring</span></div>
+      <div class="icon-item"><i class="fab fa-linkedin text-primary"></i><span>LinkedIn Optimization</span></div>
+      <div class="icon-item"><i class="fas fa-globe text-success"></i><span>Portfolio Site Evaluation</span></div>
+    </div>
+  </div>
+
+  <!-- How Each Evaluation Works -->
+  <div class="about-card">
+    <h4><i class="fas fa-cogs text-warning me-2"></i>How Each Evaluation Works</h4>
+
+    <!-- GitHub -->
+    <div class="mode-section">
+      <h6 class="text-info"><i class="fab fa-github me-2"></i>GitHub Evaluation</h6>
+      <p>Pulls live data from the GitHub API across all public repositories:</p>
+      <ul>
+        <li>⭐ Stars, forks, commit count &amp; pull request history</li>
+        <li>🗓 Recent activity — repos pushed in the last 90 days</li>
+        <li>📖 README coverage &amp; test directory presence</li>
+        <li>🌐 Language diversity across all repositories</li>
+      </ul>
+      <div class="score-formula">
+        score = <span>stars × 0.3</span> + <span>forks × 0.2</span> + <span>repos × 2</span> + <span>recent_push × 3</span> + <span>readme × 5</span> + <span>tests × 5</span> + <span>commits × 0.1</span> + <span>prs × 0.5</span>
+      </div>
+    </div>
+
+    <!-- Resume -->
+    <div class="mode-section">
+      <h6 class="text-warning"><i class="fas fa-file-pdf me-2"></i>Resume Evaluation</h6>
+      <p>Extracts text from your PDF and applies rule-based ATS analysis:</p>
+      <ul>
+        <li>Detects 20+ technical skills by keyword matching</li>
+        <li>Checks for Education, Experience, Projects, Achievements, Contact, Summary sections</li>
+        <li>Scores ATS compatibility 0–100 based on section completeness &amp; skill density</li>
+        <li>Generates targeted improvement recommendations</li>
+      </ul>
+    </div>
+
+    <!-- LinkedIn -->
+    <div class="mode-section">
+      <h6 class="text-primary"><i class="fab fa-linkedin me-2"></i>LinkedIn Evaluation</h6>
+      <p>Provides structured profile improvement guidance based on LinkedIn best practices:</p>
+      <ul>
+        <li>Personalized headline writing formula</li>
+        <li>Profile completeness tips (photo, about, projects, education)</li>
+        <li>Visibility &amp; SEO optimization (Open to Work, skill endorsements)</li>
+        <li>Networking strategy for connecting with recruiters &amp; peers</li>
+      </ul>
+    </div>
+
+    <!-- Portfolio -->
+    <div class="mode-section">
+      <h6 class="text-success"><i class="fas fa-globe me-2"></i>Portfolio Website Evaluation</h6>
+      <p>Analyzes your personal portfolio site for professional readiness:</p>
+      <ul>
+        <li>Checks for key sections: About, Projects, Skills, Contact, Resume link</li>
+        <li>Evaluates content clarity, call-to-actions, and first impression</li>
+        <li>Scores portfolio quality and highlights what to add</li>
+        <li>Gives design &amp; structure recommendations</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Scoring & Transparency -->
+  <div class="about-card">
+    <h4><i class="fas fa-shield-alt text-success me-2"></i>Scoring &amp; Transparency</h4>
+    <ul>
+      <li>All GitHub data is fetched directly from the public GitHub API — no scraping.</li>
+      <li>Resume analysis is rule-based (no data stored or sent to third parties).</li>
+      <li>LinkedIn tips are pre-computed best practices — no LinkedIn API access needed.</li>
+      <li>Portfolio analysis uses URL content heuristics only.</li>
+      <li>Scores are reproducible — same inputs → same score every time.</li>
+    </ul>
+  </div>
+
+  <!-- Tech Stack -->
+  <div class="about-card text-center">
+    <h4><i class="fas fa-layer-group text-info me-2"></i>Tech Stack</h4>
+    <p style="color:#888;margin-bottom:16px;">PortIQ is powered by these technologies</p>
+    <div>
+      <span class="tech-pill"><i class="fab fa-python me-1 text-warning"></i>Python</span>
+      <span class="tech-pill"><i class="fas fa-flask me-1 text-info"></i>Flask</span>
+      <span class="tech-pill"><i class="fab fa-bootstrap me-1" style="color:#7952b3;"></i>Bootstrap 5</span>
+      <span class="tech-pill"><i class="fab fa-github me-1 text-white"></i>GitHub API</span>
+      <span class="tech-pill"><i class="fas fa-chart-bar me-1 text-success"></i>Chart.js</span>
+      <span class="tech-pill"><i class="fas fa-file-pdf me-1 text-danger"></i>PyPDF2</span>
+      <span class="tech-pill"><i class="fas fa-robot me-1 text-primary"></i>AI-Powered</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="mb-2"><span class="brand">Port<span style="color:#0d6efd">IQ</span></span>
+      <span style="color:#444;font-size:0.75rem;margin-left:8px;">— Evaluate Smarter. Grow Faster.</span>
+    </div>
+    <div class="footer-links mb-3">
+      <a href="/">Home</a>
+      <a href="/evaluate">Evaluate</a>
+      <a href="/results">Results</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/about">About</a>
+    </div>
+    <p style="font-size:0.78rem;color:#444;margin:0 0 14px;">&copy; 2026 PortIQ</p>
+  </div>
+  <div class="marquee-strip">
+    <marquee behavior="scroll" direction="left" scrollamount="4">
+      <span>🚀 PortIQ</span>
+      <span>📊 GitHub Analysis</span>
+      <span>📄 Resume ATS Score</span>
+      <span>💼 LinkedIn Optimizer</span>
+      <span>🌐 Portfolio Evaluator</span>
+      <span>🎯 Job Role Matches</span>
+      <span>🔍 Skill Gap Analysis</span>
+      <span>📈 Career Insights</span>
+      <span>⭐ Code Quality Metrics</span>
+      <span>🤖 AI-Powered Evaluation</span>
+    </marquee>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
