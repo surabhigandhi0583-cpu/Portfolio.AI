@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Evaluate – PortIQ</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body{font-family:'Poppins',sans-serif;background:#000;color:#f0f0f0;}
+    .navbar{background:#000!important;border-bottom:1px solid #1a1a1a;}
+    .hero{background:url('https://wallpapercave.com/wp/wp2700093.jpg') no-repeat center/cover;min-height:38vh;position:relative;display:flex;align-items:center;}
+    .hero::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,.75);}
+    .hero .container{position:relative;}
+    .hero h1{color:#fff!important;} .hero p{color:#ccc!important;}
+    .form-wrap{background:#0d0d0d;border:1px solid #222;border-radius:14px;padding:30px;}
+    .form-control{background:#111;border:1px solid #2a2a2a;color:#f0f0f0;}
+    .form-control:focus{background:#181818;border-color:#0d6efd;color:#fff;box-shadow:none;}
+    .form-control::placeholder{color:#555;}
+    .form-label{color:#ccc;font-weight:600;font-size:0.92rem;}
+    .divider{border-top:1px solid #1e1e1e;margin:22px 0;}
+    small.text-muted{color:#777!important;}
+    footer{background:#000;border-top:1px solid #1a1a1a;color:#888;text-align:center;}
+    footer .footer-top{padding:22px 20px 10px;}
+    footer .brand{color:#fff;font-weight:700;}
+    footer .footer-links a{color:#777;text-decoration:none;margin:0 10px;font-size:0.85rem;}
+    footer .footer-links a:hover{color:#0d6efd;}
+    footer .marquee-strip{background:#080808;border-top:1px solid #1a1a1a;padding:10px 0;}
+    footer marquee{font-size:0.78rem;color:#444;}
+    footer marquee span{margin:0 30px;}
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-4" href="/">Port<span style="color:#0d6efd">IQ</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse justify-content-end" id="nav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/evaluate">Evaluate</a></li>
+        <li class="nav-item"><a class="nav-link" href="/results">Results</a></li>
+        <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container text-center">
+    <h1 class="fw-bold">Evaluate Your Profile</h1>
+    <p class="lead">Submit GitHub, Resume, LinkedIn or Portfolio — get smart AI insights instantly.</p>
+  </div>
+</section>
+
+<section class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show">{{ message }}<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+        {% endfor %}
+      {% endif %}
+      {% endwith %}
+
+      <div class="form-wrap">
+        <h5 class="mb-1 text-white">What do you want to evaluate?</h5>
+        <p style="color:#777;font-size:0.85rem;margin-bottom:24px;">Fill in one or more sections — at least one is required.</p>
+
+        <form method="POST" action="/evaluate" enctype="multipart/form-data">
+
+          <div class="mb-4">
+            <label class="form-label"><i class="fab fa-github me-2 text-info"></i>GitHub Username or URL</label>
+            <textarea class="form-control" name="githubInputs" rows="2" placeholder="e.g. octocat&#10;https://github.com/torvalds"></textarea>
+            <small class="text-muted">One username or URL per line. Analyzes repos, stars, commits, languages &amp; more.</small>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="mb-4">
+            <label class="form-label"><i class="fas fa-file-pdf me-2 text-warning"></i>Resume PDF</label>
+            <input type="file" class="form-control" name="resume_file" accept=".pdf">
+            <small class="text-muted">PDF only, max 5MB. Analyzes ATS score, skills, structure &amp; gives improvement tips.</small>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="mb-4">
+            <label class="form-label"><i class="fab fa-linkedin me-2 text-primary"></i>LinkedIn Profile URL</label>
+            <input type="url" class="form-control" name="linkedin" placeholder="https://linkedin.com/in/yourname">
+            <small class="text-muted">Get personalized headline advice, profile tips, visibility SEO &amp; networking strategy.</small>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="mb-4">
+            <label class="form-label"><i class="fas fa-globe me-2 text-success"></i>Portfolio Website URL</label>
+            <input type="url" class="form-control" name="portfolio_url" placeholder="https://yourname.github.io">
+            <small class="text-muted">Evaluates your portfolio site for structure, content clarity &amp; professional impact.</small>
+          </div>
+
+          <p style="color:#e0a800;font-size:0.82rem;">* At least one input is required</p>
+          <button type="submit" class="btn btn-primary btn-lg w-100 mt-1">
+            <i class="fas fa-bolt me-2"></i>Run Evaluation
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="mb-1"><span class="brand">Port<span style="color:#0d6efd">IQ</span></span></div>
+    <div class="footer-links mb-2">
+      <a href="/">Home</a><a href="/evaluate">Evaluate</a><a href="/results">Results</a><a href="/dashboard">Dashboard</a><a href="/about">About</a>
+    </div>
+    <p style="font-size:0.78rem;color:#444;margin:0 0 12px;">&copy; 2026 PortIQ</p>
+  </div>
+  <div class="marquee-strip">
+    <marquee behavior="scroll" direction="left" scrollamount="4">
+      <span>🚀 PortIQ</span><span>📊 GitHub Analysis</span><span>📄 Resume ATS Score</span><span>💼 LinkedIn Optimizer</span><span>🌐 Portfolio Evaluator</span><span>🎯 Job Role Matches</span><span>🔍 Skill Gap Analysis</span><span>📈 Career Insights</span><span>⭐ Code Quality Metrics</span><span>🤖 AI-Powered Evaluation</span>
+    </marquee>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

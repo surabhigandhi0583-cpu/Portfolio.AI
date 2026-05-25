@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Results – PortIQ</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body{font-family:'Poppins',sans-serif;background:#000;color:#f0f0f0;}
+    .navbar{background:#000!important;border-bottom:1px solid #1a1a1a;}
+    .hero{background:url('https://wallpapercave.com/wp/wp2700093.jpg') no-repeat center/cover;min-height:34vh;position:relative;display:flex;align-items:center;}
+    .hero::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,.75);}
+    .hero .container{position:relative;}
+    .hero h1{color:#fff!important;} .hero p{color:#ccc!important;}
+
+    /* ── RESULT TYPE TABS ── */
+    .eval-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;}
+    .eval-tab{padding:8px 20px;border-radius:50px;border:1px solid #333;background:transparent;color:#888;font-size:0.82rem;cursor:pointer;transition:all .2s;}
+    .eval-tab.active{color:#fff;font-weight:600;}
+    .eval-tab[data-type="github"].active{background:#0e2a3a;border-color:#0dcaf0;color:#0dcaf0;}
+    .eval-tab[data-type="resume"].active{background:#2a1f00;border-color:#ffc107;color:#ffc107;}
+    .eval-tab[data-type="linkedin"].active{background:#0a1d2e;border-color:#0d6efd;color:#7ec8ff;}
+    .eval-tab[data-type="portfolio"].active{background:#0a2018;border-color:#198754;color:#3dd68c;}
+
+    /* ── PANEL VISIBILITY ── */
+    .result-panel{display:none;}
+    .result-panel.active{display:block;}
+
+    /* ── CARDS ── */
+    .rc{background:#0d0d0d;border:1px solid #222;border-radius:14px;padding:22px;height:100%;color:#f0f0f0;}
+    .rc h5{font-size:0.88rem;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+    .big-num{font-size:2.2rem;font-weight:700;color:#0d6efd;}
+    .sc{background:#0d0d0d;border:1px solid #222;border-radius:14px;padding:22px;}
+    .sc h5{font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:14px;}
+    .progress{height:10px;border-radius:10px;background:#1a1a1a;}
+    ul.rl{list-style:none;padding:0;margin:0;}
+    ul.rl li{padding:8px 0;border-bottom:1px solid #1a1a1a;font-size:0.88rem;color:#ddd;display:flex;align-items:flex-start;gap:8px;}
+    ul.rl li:last-child{border-bottom:none;}
+    ul.rl li a{color:inherit;text-decoration:none;}
+    ul.rl li a:hover{color:#0d6efd;}
+    .pill{display:inline-block;background:#141414;border:1px solid #2a2a2a;border-radius:50px;padding:4px 14px;margin:3px;font-size:0.8rem;color:#ccc;}
+    .pill a{color:inherit;text-decoration:none;}
+    .lang-badge{background:#0e2233;color:#7ec8ff;padding:4px 12px;border-radius:50px;font-size:0.78rem;margin:3px;display:inline-block;}
+    .sec-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+    .sec-hdr .ibox{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0;}
+    .no-data{text-align:center;padding:60px 20px;color:#555;}
+    .no-data i{font-size:3rem;margin-bottom:16px;display:block;}
+    .type-banner{border-radius:12px;padding:14px 20px;margin-bottom:24px;display:flex;align-items:center;gap:14px;font-weight:600;}
+
+    /* Footer */
+    footer{background:#000;border-top:1px solid #1a1a1a;color:#888;text-align:center;}
+    footer .footer-top{padding:22px 20px 10px;}
+    footer .brand{color:#fff;font-weight:700;}
+    footer .footer-links a{color:#777;text-decoration:none;margin:0 10px;font-size:0.85rem;}
+    footer .footer-links a:hover{color:#0d6efd;}
+    footer .marquee-strip{background:#080808;border-top:1px solid #1a1a1a;padding:10px 0;}
+    footer marquee{font-size:0.78rem;color:#444;}
+    footer marquee span{margin:0 30px;}
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-4" href="/">Port<span style="color:#0d6efd">IQ</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse justify-content-end" id="nav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/evaluate">Evaluate</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/results">Results</a></li>
+        <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container text-center">
+    <h1 class="fw-bold">Evaluation Results</h1>
+    {% if username %}
+    <p class="lead">Analysis for: <strong style="color:#fff;">{{ username }}</strong></p>
+    {% else %}
+    <p class="lead">Your profile performance summary &amp; recommendations</p>
+    {% endif %}
+  </div>
+</section>
+
+<section class="container my-5">
+
+  {# ── DETERMINE WHAT WAS EVALUATED ── #}
+  {% set has_github    = score is not none %}
+  {% set has_resume    = resume_analysis is not none %}
+  {% set has_linkedin  = linkedin_analysis is not none %}
+  {% set has_portfolio = portfolio_analysis is not none %}
+  {% set has_any = has_github or has_resume or has_linkedin or has_portfolio %}
+
+  {% if not has_any %}
+  <div class="no-data">
+    <i class="fas fa-inbox"></i>
+    <h4 style="color:#ccc;">No evaluation data yet</h4>
+    <p>Run an evaluation first to see your results here.</p>
+    <a href="/evaluate" class="btn btn-primary mt-2">Go to Evaluate</a>
+  </div>
+  {% else %}
+
+  <!-- TABS — only show tabs for what was actually evaluated -->
+  <div class="eval-tabs" id="evalTabs">
+    {% if has_github %}
+    <button class="eval-tab active" data-type="github" onclick="showPanel('github')">
+      <i class="fab fa-github me-1"></i> GitHub
+    </button>
+    {% endif %}
+    {% if has_resume %}
+    <button class="eval-tab {% if not has_github %}active{% endif %}" data-type="resume" onclick="showPanel('resume')">
+      <i class="fas fa-file-pdf me-1"></i> Resume
+    </button>
+    {% endif %}
+    {% if has_linkedin %}
+    <button class="eval-tab {% if not has_github and not has_resume %}active{% endif %}" data-type="linkedin" onclick="showPanel('linkedin')">
+      <i class="fab fa-linkedin me-1"></i> LinkedIn
+    </button>
+    {% endif %}
+    {% if has_portfolio %}
+    <button class="eval-tab {% if not has_github and not has_resume and not has_linkedin %}active{% endif %}" data-type="portfolio" onclick="showPanel('portfolio')">
+      <i class="fas fa-globe me-1"></i> Portfolio
+    </button>
+    {% endif %}
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       GITHUB PANEL
+  ═══════════════════════════════════════ -->
+  {% if has_github %}
+  <div class="result-panel active" id="panel-github">
+    <div class="type-banner" style="background:#0e2233;border:1px solid #0dcaf055;color:#0dcaf0;">
+      <i class="fab fa-github fa-lg"></i>
+      <span>GitHub Analysis — {{ username }}</span>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-md-3">
+        <div class="rc text-center">
+          <h5>GitHub Score</h5>
+          <div class="big-num">{{ score }}<small style="font-size:0.9rem;color:#444">/100</small></div>
+          <div class="progress mt-3"><div class="progress-bar bg-info" style="width:{{ score }}%"></div></div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="rc">
+          <h5>Repositories</h5>
+          <div class="big-num">{{ stats.repos }}</div>
+          <p style="font-size:0.8rem;color:#666;margin:4px 0 12px;">{{ stats.recent_push }} active in 90 days</p>
+          <h5>Languages</h5>
+          <div class="big-num" style="font-size:1.7rem;">{{ stats.languages|length }}</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="rc">
+          <h5>⭐ Stars</h5>
+          <div class="big-num">{{ stats.stars }}</div>
+          <h5 class="mt-3">🍴 Forks</h5>
+          <div class="big-num" style="font-size:1.7rem;">{{ stats.forks }}</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="rc">
+          <h5>Commits</h5>
+          <div class="big-num">{{ stats.total_commits }}</div>
+          <h5 class="mt-3">Pull Requests</h5>
+          <div class="big-num" style="font-size:1.7rem;">{{ stats.total_prs }}</div>
+        </div>
+      </div>
+    </div>
+
+    {% if stats.languages %}
+    <div class="sc mb-4">
+      <div class="sec-hdr">
+        <div class="ibox" style="background:#0e2233;color:#0dcaf0;"><i class="fas fa-code"></i></div>
+        <h5 class="mb-0">Languages Detected</h5>
+      </div>
+      {% for lang, count in stats.languages.items() %}
+        <span class="lang-badge">{{ lang }} <span style="opacity:.6">({{ count }})</span></span>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="row g-3 mb-4">
+      {% if strengths %}
+      <div class="col-md-6">
+        <div class="sc h-100">
+          <div class="sec-hdr"><div class="ibox" style="background:#0a2018;color:#198754;"><i class="fas fa-check-circle"></i></div><h5 class="mb-0 text-success">Strengths</h5></div>
+          <ul class="rl">{% for i in strengths %}<li><i class="fas fa-check text-success mt-1" style="flex-shrink:0;font-size:.75rem;"></i><a href="https://www.google.com/search?q={{ i|urlencode }}" target="_blank">{{ i }}</a></li>{% endfor %}</ul>
+        </div>
+      </div>
+      {% endif %}
+      {% if weaknesses %}
+      <div class="col-md-6">
+        <div class="sc h-100">
+          <div class="sec-hdr"><div class="ibox" style="background:#2a1f00;color:#ffc107;"><i class="fas fa-exclamation-triangle"></i></div><h5 class="mb-0 text-warning">Areas to Improve</h5></div>
+          <ul class="rl">{% for i in weaknesses %}<li><i class="fas fa-angle-right text-warning mt-1" style="flex-shrink:0;"></i><a href="https://www.google.com/search?q={{ i|urlencode }}" target="_blank">{{ i }}</a></li>{% endfor %}</ul>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    {% if recommendations %}
+    <div class="sc mb-4">
+      <div class="sec-hdr"><div class="ibox" style="background:#0a1a3a;color:#0d6efd;"><i class="fas fa-lightbulb"></i></div><h5 class="mb-0 text-info">Recommendations</h5></div>
+      <ul class="rl">{% for i in recommendations %}<li><i class="fas fa-arrow-right text-info mt-1" style="flex-shrink:0;font-size:.75rem;"></i><a href="https://www.google.com/search?q={{ i|urlencode }}" target="_blank">{{ i }}</a></li>{% endfor %}</ul>
+    </div>
+    {% endif %}
+
+    <div class="row g-3 mb-4">
+      {% if jobs %}
+      <div class="col-md-6">
+        <div class="sc h-100">
+          <div class="sec-hdr"><div class="ibox" style="background:#1a0a3a;color:#6610f2;"><i class="fas fa-briefcase"></i></div><h5 class="mb-0">Job Role Matches</h5></div>
+          <ul class="rl">{% for j in jobs %}<li><i class="fas fa-external-link-alt text-muted mt-1" style="flex-shrink:0;font-size:.72rem;"></i><a class="text-info" href="https://www.linkedin.com/jobs/search/?keywords={{ j|urlencode }}" target="_blank">{{ j }}</a></li>{% endfor %}</ul>
+        </div>
+      </div>
+      {% endif %}
+      {% if skills %}
+      <div class="col-md-6">
+        <div class="sc h-100">
+          <div class="sec-hdr"><div class="ibox" style="background:#0e2233;color:#0dcaf0;"><i class="fas fa-tools"></i></div><h5 class="mb-0">Skill Suggestions</h5></div>
+          {% for s in skills %}<span class="pill"><a href="https://www.google.com/search?q={{ s|urlencode }}" target="_blank">{{ s }}</a></span>{% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- ═══════════════════════════════════════
+       RESUME PANEL
+  ═══════════════════════════════════════ -->
+  {% if has_resume %}
+  <div class="result-panel {% if not has_github %}active{% endif %}" id="panel-resume">
+    <div class="type-banner" style="background:#2a1f00;border:1px solid #ffc10755;color:#ffc107;">
+      <i class="fas fa-file-pdf fa-lg"></i>
+      <span>Resume / CV Analysis</span>
+    </div>
+
+    {% if resume_analysis.error %}
+      <div class="alert alert-danger">{{ resume_analysis.error }}</div>
+    {% else %}
+      {% if resume_analysis.summary %}
+      <p style="color:#aaa;font-size:0.9rem;margin-bottom:20px;">{{ resume_analysis.summary }}</p>
+      {% endif %}
+
+      {% if resume_analysis.ats_score is defined %}
+      <div class="sc mb-4">
+        <h5><i class="fas fa-robot me-2 text-warning"></i>ATS Compatibility Score</h5>
+        <div class="d-flex justify-content-between mb-2">
+          <span style="color:#ccc;font-size:0.9rem;">Score</span>
+          <span class="text-warning fw-bold" style="font-size:1.2rem;">{{ resume_analysis.ats_score }} / 100</span>
+        </div>
+        <div class="progress" style="height:14px;"><div class="progress-bar bg-warning" style="width:{{ resume_analysis.ats_score }}%"></div></div>
+        <p style="font-size:0.8rem;color:#666;margin-top:8px;">
+          {% if resume_analysis.ats_score >= 75 %}✅ Good ATS score — your resume should pass most automated filters.
+          {% elif resume_analysis.ats_score >= 50 %}⚠️ Average ATS score — follow recommendations to improve.
+          {% else %}❌ Low ATS score — significant improvements needed.{% endif %}
+        </p>
+      </div>
+      {% endif %}
+
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <div class="sc h-100">
+            <h5 class="text-success"><i class="fas fa-check-circle me-2"></i>Strengths</h5>
+            <ul class="rl">{% for s in resume_analysis.get('strengths', []) %}<li><i class="fas fa-check text-success mt-1" style="flex-shrink:0;font-size:.75rem;"></i>{{ s }}</li>{% endfor %}</ul>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="sc h-100">
+            <h5 class="text-warning"><i class="fas fa-exclamation-circle me-2"></i>Areas to Improve</h5>
+            <ul class="rl">{% for w in resume_analysis.get('weaknesses', []) %}<li><i class="fas fa-angle-right text-warning mt-1" style="flex-shrink:0;"></i>{{ w }}</li>{% endfor %}</ul>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="sc h-100">
+            <h5 class="text-info"><i class="fas fa-tools me-2"></i>Skills Detected</h5>
+            {% for sk in resume_analysis.get('skills_found', []) %}<span class="pill">{{ sk }}</span>{% endfor %}
+          </div>
+        </div>
+      </div>
+
+      {% if resume_analysis.recommendations %}
+      <div class="sc mb-4">
+        <h5 class="text-info"><i class="fas fa-lightbulb me-2"></i>Recommendations</h5>
+        <ul class="rl">{% for r in resume_analysis.recommendations %}<li><i class="fas fa-arrow-right text-info mt-1" style="flex-shrink:0;font-size:.75rem;"></i>{{ r }}</li>{% endfor %}</ul>
+      </div>
+      {% endif %}
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <!-- ═══════════════════════════════════════
+       LINKEDIN PANEL
+  ═══════════════════════════════════════ -->
+  {% if has_linkedin %}
+  <div class="result-panel {% if not has_github and not has_resume %}active{% endif %}" id="panel-linkedin">
+    <div class="type-banner" style="background:#0a1d2e;border:1px solid #0d6efd55;color:#7ec8ff;">
+      <i class="fab fa-linkedin fa-lg"></i>
+      <span>LinkedIn Profile Optimization</span>
+    </div>
+
+    {% if linkedin_analysis.error %}
+      <div class="alert alert-danger">{{ linkedin_analysis.error }}</div>
+    {% else %}
+      {% if linkedin_analysis.headline_advice %}
+      <div class="sc mb-4" style="background:#0a1d2e;border-color:#0d6efd44;">
+        <h5><i class="fas fa-pen-alt me-2 text-info"></i>Headline Advice</h5>
+        <p style="color:#ccc;font-size:0.9rem;margin:0;">{{ linkedin_analysis.headline_advice }}</p>
+      </div>
+      {% endif %}
+
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <div class="sc h-100">
+            <h5 class="text-success"><i class="fas fa-user-check me-2"></i>Profile Tips</h5>
+            <ul class="rl">{% for t in linkedin_analysis.get('profile_tips', []) %}<li><i class="fas fa-check text-success mt-1" style="flex-shrink:0;font-size:.75rem;"></i>{{ t }}</li>{% endfor %}</ul>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="sc h-100">
+            <h5 class="text-warning"><i class="fas fa-search me-2"></i>Visibility &amp; SEO</h5>
+            <ul class="rl">{% for t in linkedin_analysis.get('visibility_tips', []) %}<li><i class="fas fa-angle-right text-warning mt-1" style="flex-shrink:0;"></i>{{ t }}</li>{% endfor %}</ul>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="sc h-100">
+            <h5 class="text-info"><i class="fas fa-handshake me-2"></i>Networking Tips</h5>
+            <ul class="rl">{% for t in linkedin_analysis.get('networking_tips', []) %}<li><i class="fas fa-angle-right text-info mt-1" style="flex-shrink:0;"></i>{{ t }}</li>{% endfor %}</ul>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <!-- ═══════════════════════════════════════
+       PORTFOLIO PANEL
+  ═══════════════════════════════════════ -->
+  {% if has_portfolio %}
+  <div class="result-panel {% if not has_github and not has_resume and not has_linkedin %}active{% endif %}" id="panel-portfolio">
+    <div class="type-banner" style="background:#0a2018;border:1px solid #19875455;color:#3dd68c;">
+      <i class="fas fa-globe fa-lg"></i>
+      <span>Portfolio Website Analysis</span>
+      {% if portfolio_analysis.url %} — <a href="{{ portfolio_analysis.url }}" target="_blank" style="color:#3dd68c;font-size:0.85rem;">{{ portfolio_analysis.url }}</a>{% endif %}
+    </div>
+
+    {% if portfolio_analysis.error %}
+      <div class="alert alert-danger">{{ portfolio_analysis.error }}</div>
+    {% else %}
+      {% if portfolio_analysis.score is defined %}
+      <div class="sc mb-4">
+        <h5><i class="fas fa-star me-2 text-success"></i>Portfolio Quality Score</h5>
+        <div class="d-flex justify-content-between mb-2">
+          <span style="color:#ccc;font-size:0.9rem;">Score</span>
+          <span class="text-success fw-bold" style="font-size:1.2rem;">{{ portfolio_analysis.score }} / 100</span>
+        </div>
+        <div class="progress" style="height:14px;"><div class="progress-bar bg-success" style="width:{{ portfolio_analysis.score }}%"></div></div>
+      </div>
+      {% endif %}
+
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <div class="sc h-100">
+            <h5 class="text-success"><i class="fas fa-check-circle me-2"></i>What's Working</h5>
+            <ul class="rl">{% for s in portfolio_analysis.get('strengths', []) %}<li><i class="fas fa-check text-success mt-1" style="flex-shrink:0;font-size:.75rem;"></i>{{ s }}</li>{% endfor %}</ul>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="sc h-100">
+            <h5 class="text-warning"><i class="fas fa-exclamation-triangle me-2"></i>Needs Improvement</h5>
+            <ul class="rl">{% for w in portfolio_analysis.get('weaknesses', []) %}<li><i class="fas fa-angle-right text-warning mt-1" style="flex-shrink:0;"></i>{{ w }}</li>{% endfor %}</ul>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="sc h-100">
+            <h5 class="text-info"><i class="fas fa-lightbulb me-2"></i>Recommendations</h5>
+            <ul class="rl">{% for r in portfolio_analysis.get('recommendations', []) %}<li><i class="fas fa-arrow-right text-info mt-1" style="flex-shrink:0;font-size:.75rem;"></i>{{ r }}</li>{% endfor %}</ul>
+          </div>
+        </div>
+      </div>
+
+      {% if portfolio_analysis.get('sections_found') %}
+      <div class="sc mb-4">
+        <h5 style="color:#888;font-size:0.82rem;text-transform:uppercase;letter-spacing:1px;">Sections Detected on Your Site</h5>
+        {% for sec in portfolio_analysis.sections_found %}
+          <span class="pill" style="background:#0a2018;border-color:#19875444;color:#3dd68c;">✓ {{ sec }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <!-- Action Buttons -->
+  <div class="text-center mt-4 pt-2">
+    <button id="dlBtn" class="btn btn-success btn-lg me-3"><i class="fas fa-download me-2"></i>Download Report (PDF)</button>
+    <a href="/evaluate" class="btn btn-outline-light btn-lg"><i class="fas fa-redo me-2"></i>Re-Evaluate</a>
+  </div>
+
+  {% endif %}{# end has_any #}
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="mb-1"><span class="brand">Port<span style="color:#0d6efd">IQ</span></span></div>
+    <div class="footer-links mb-2">
+      <a href="/">Home</a><a href="/evaluate">Evaluate</a><a href="/results">Results</a><a href="/dashboard">Dashboard</a><a href="/about">About</a>
+    </div>
+    <p style="font-size:0.78rem;color:#444;margin:0 0 12px;">&copy; 2026 PortIQ</p>
+  </div>
+  <div class="marquee-strip">
+    <marquee behavior="scroll" direction="left" scrollamount="4">
+      <span>🚀 PortIQ</span><span>📊 GitHub Analysis</span><span>📄 Resume ATS Score</span><span>💼 LinkedIn Optimizer</span><span>🌐 Portfolio Evaluator</span><span>🎯 Job Role Matches</span><span>🔍 Skill Gap Analysis</span><span>📈 Career Insights</span><span>⭐ Code Quality Metrics</span><span>🤖 AI-Powered Evaluation</span>
+    </marquee>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function showPanel(type) {
+  document.querySelectorAll('.result-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.eval-tab').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('panel-' + type);
+  if (panel) panel.classList.add('active');
+  const tab = document.querySelector('.eval-tab[data-type="' + type + '"]');
+  if (tab) tab.classList.add('active');
+}
+
+const dlBtn = document.getElementById('dlBtn');
+if (dlBtn) dlBtn.addEventListener('click', () => {
+  // Show all panels for PDF
+  document.querySelectorAll('.result-panel').forEach(p => p.style.display = 'block');
+  html2pdf().from(document.body).set({
+    margin:10, filename:'portiq-report.pdf',
+    html2canvas:{scale:2, backgroundColor:'#000'},
+    jsPDF:{unit:'mm', format:'a4', orientation:'portrait'}
+  }).save().then(() => {
+    // Restore tab view
+    document.querySelectorAll('.result-panel').forEach(p => p.style.display = '');
+    const firstActive = document.querySelector('.result-panel');
+    if(firstActive) firstActive.classList.add('active');
+  });
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
